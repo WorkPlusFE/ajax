@@ -1,10 +1,11 @@
 import base from './rollup.config.base'
 
 const config = Object.assign({}, base, {
-  exports: 'name',
+  exports: 'vue-axios-plugins',
   output: {
     file: 'dist/vue-axios-plugin.umd.js',
-    format: 'umd'
+    format: 'umd',
+    name: 'vue-axios-plugins'
   }
 })
 

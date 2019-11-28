@@ -1,15 +1,15 @@
-import axios from 'axios/dist/axios'
+import axios from 'axios'
 
 const VueAxiosPlugin = {}
 
 VueAxiosPlugin.install = (Vue, options) => {
   const defaultOptions = {
     // request interceptor handler
-    reqHandleFunc: (config) => config,
-    reqErrorFunc: (error) => Promise.reject(error),
+    reqHandle: (config) => config,
+    reqError: (error) => Promise.reject(error),
     // response interceptor handler
-    resHandleFunc: (response) => response,
-    resErrorFunc: (error) => Promise.reject(error),
+    resHandle: (response) => response,
+    resError: (error) => Promise.reject(error),
   }
 
   const initOptions = {
@@ -21,13 +21,13 @@ VueAxiosPlugin.install = (Vue, options) => {
 
   // Add a request interceptor
   service.interceptors.request.use(
-    (config) => initOptions.reqHandleFunc(config),
-    (error) => initOptions.reqErrorFunc(error),
+    (config) => initOptions.reqHandle(config),
+    (error) => initOptions.reqError(error)
   )
   // Add a response interceptor
   service.interceptors.response.use(
-    (response) => initOptions.resHandleFunc(response),
-    (error) => initOptions.resErrorFunc(error),
+    (response) => initOptions.resHandle(response),
+    (error) => initOptions.resError(error)
   )
 
   Vue.prototype.$axios = service

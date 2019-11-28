@@ -1,10 +1,20 @@
 {
   "name": "ajax",
   "version": "1.0.0",
-  "main": "index.js",
   "repository": "https://github.com/ElvisUpUp/ajax.git",
   "author": "何镇豪 <elvis4study@gmail.com>",
   "license": "MIT",
+  "main": "dist/vue-axios-plugin.umd.js",
+  "module": "dist/vue-axios-plugin.esm.js",
+  "unpkg": "dist/vue-axios-plugin.min.js",
+  "typings": "types/index.d.ts",
+  "scripts": {
+    "build": "npm run build:browser && npm run build:es && npm run build:umd",
+    "build:es": "rollup --config build/rollup.config.es.js",
+    "build:umd": "rollup --config build/rollup.config.umd.js",
+    "prepublish": "npm run lint && npm run build",
+    "lint": "eslint src/*.js --quiet"
+  },
   "dependencies": {
     "axios": "^0.19.0"
   },
@@ -18,6 +28,7 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-uglify": "^6.0.3",
-    "uglify-es": "^3.3.9"
+    "uglify-es": "^3.3.9",
+    "vue": "^2.6.10"
   }
 }

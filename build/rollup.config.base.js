@@ -12,7 +12,6 @@ export default {
     resolve({
       jsnext: true,
       main: true,
-      browser: true
     }),
     cjs({
       include: 'node_modules/**'
