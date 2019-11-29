@@ -6,14 +6,12 @@
   "license": "MIT",
   "main": "dist/vue-axios-plugin.umd.js",
   "module": "dist/vue-axios-plugin.esm.js",
-  "unpkg": "dist/vue-axios-plugin.min.js",
   "typings": "types/index.d.ts",
   "scripts": {
-    "build": "npm run build:browser && npm run build:es && npm run build:umd",
+    "build": "npm run build:es && npm run build:umd",
     "build:es": "rollup --config build/rollup.config.es.js",
     "build:umd": "rollup --config build/rollup.config.umd.js",
-    "prepublish": "npm run lint && npm run build",
-    "lint": "eslint src/*.js --quiet"
+    "prepublish": "npm run build",
   },
   "dependencies": {
     "axios": "^0.19.0"
