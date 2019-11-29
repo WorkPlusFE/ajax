@@ -19,12 +19,12 @@ WpAxiosPlugin.install = (Vue, options) => {
 
   const service = axios.create(initOptions)
 
-  // Add a request interceptor
+  // 请求拦截器
   service.interceptors.request.use(
     (config) => initOptions.reqHandle(config),
     (error) => initOptions.reqError(error)
   )
-  // Add a response interceptor
+  // 响应拦截器
   service.interceptors.response.use(
     (response) => initOptions.resHandle(response),
     (error) => initOptions.resError(error)
