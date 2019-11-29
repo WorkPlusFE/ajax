@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import './vueAxiosMethods'
+import './wpAxiosMethods'
 import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 type PlainObject = {
@@ -21,3 +21,10 @@ interface RequestMethods {
 }
 
 export function install(vue: typeof Vue, options: installationOptions): void
+
+declare module 'vue/types/vue' {
+  interface Vue {
+    $axios: AxiosInstance
+    $http: RequestMethods
+  }
+}

@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-const VueAxiosPlugin = {}
+const WpAxiosPlugin = {}
 
-VueAxiosPlugin.install = (Vue, options) => {
+WpAxiosPlugin.install = (Vue, options) => {
   const defaultOptions = {
     // request interceptor handler
     reqHandle: (config) => config,
@@ -87,7 +87,9 @@ if (typeof window !== 'undefined') {
   GlobalVue = global.Vue
 }
 if (GlobalVue) {
-  GlobalVue.use(VueAxiosPlugin)
+  GlobalVue.use(WpAxiosPlugin)
+} else {
+  throw Error('Vue实例未注入')
 }
 
-export default VueAxiosPlugin
+export default WpAxiosPlugin
