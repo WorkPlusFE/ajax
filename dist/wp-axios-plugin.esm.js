@@ -1,3 +1,52 @@
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 function createCommonjsModule(fn, module) {
@@ -1619,126 +1668,134 @@ return /******/ (function(modules) { // webpackBootstrap
 
 });
 
-const WpAxiosPlugin = {};
+var WpAxiosPlugin = {};
 
 function create(options) {
-  if (Object.prototype.toString.call(option) !== '[object Object]') {
+  if (Object.prototype.toString.call(options) !== '[object Object]') {
     options = {};
   }
 
-  const defaultOptions = {
+  var defaultOptions = {
     // request interceptor handler
-    requestHandler: config => config,
-    requestErrorHandler: error => Promise.reject(error),
+    requestHandler: function requestHandler(config) {
+      return config;
+    },
+    requestErrorHandler: function requestErrorHandler(error) {
+      return Promise.reject(error);
+    },
     // response interceptor handler
-    responseHandler: response => response,
-    responseErrorHandler: error => Promise.reject(error)
+    responseHandler: function responseHandler(response) {
+      return response;
+    },
+    responseErrorHandler: function responseErrorHandler(error) {
+      return Promise.reject(error);
+    }
   };
-  const axiosOption = { ...defaultOptions,
-    ...options
-  };
-  const service = axios.create(axiosOption); // 请求拦截器
 
-  service.interceptors.request.use(config => axiosOption.requestHandler(config), error => axiosOption.requestErrorHandler(error)); // 响应拦截器
+  var axiosOption = _objectSpread2({}, defaultOptions, {}, options);
 
-  service.interceptors.response.use(response => axiosOption.responseHandler(response), error => axiosOption.responseErrorHandler(error));
+  var service = axios.create(axiosOption); // 请求拦截器
+
+  service.interceptors.request.use(function (config) {
+    return axiosOption.requestHandler(config);
+  }, function (error) {
+    return axiosOption.requestErrorHandler(error);
+  }); // 响应拦截器
+
+  service.interceptors.response.use(function (response) {
+    return axiosOption.responseHandler(response);
+  }, function (error) {
+    return axiosOption.responseErrorHandler(error);
+  });
 
   service.$get = function (url, data, options) {
-    const axiosOpt = { ...options,
-      ...{
-        method: 'get',
-        url,
-        params: data
-      }
-    };
+    var axiosOpt = _objectSpread2({}, options, {}, {
+      method: 'get',
+      url: url,
+      params: data
+    });
+
     return service(axiosOpt);
   };
 
   service.$post = function (url, data, options) {
-    const axiosOpt = { ...options,
-      ...{
-        method: 'post',
-        url,
-        data
-      }
-    };
+    var axiosOpt = _objectSpread2({}, options, {}, {
+      method: 'post',
+      url: url,
+      data: data
+    });
+
     return service(axiosOpt);
   };
 
   service.$delete = function (url, data, options) {
-    const axiosOpt = { ...options,
-      ...{
-        method: 'delete',
-        url,
-        data
-      }
-    };
+    var axiosOpt = _objectSpread2({}, options, {}, {
+      method: 'delete',
+      url: url,
+      data: data
+    });
+
     return service(axiosOpt);
   };
 
   service.$put = function (url, data, options) {
-    const axiosOpt = { ...options,
-      ...{
-        method: 'put',
-        url,
-        data
-      }
-    };
+    var axiosOpt = _objectSpread2({}, options, {}, {
+      method: 'put',
+      url: url,
+      data: data
+    });
+
     return service(axiosOpt);
   };
 
   return service;
 }
 
-WpAxiosPlugin.install = (Vue, options) => {
-  const service = create(options);
+WpAxiosPlugin.install = function (Vue, options) {
+  var service = create(options);
   Vue.prototype.$axios = service;
 
   Vue.prototype.$get = function (url, data, options) {
-    const axiosOpt = { ...options,
-      ...{
-        method: 'get',
-        url,
-        params: data
-      }
-    };
+    var axiosOpt = _objectSpread2({}, options, {}, {
+      method: 'get',
+      url: url,
+      params: data
+    });
+
     return service(axiosOpt);
   };
 
   Vue.prototype.$post = function (url, data, options) {
-    const axiosOpt = { ...options,
-      ...{
-        method: 'post',
-        url,
-        data
-      }
-    };
+    var axiosOpt = _objectSpread2({}, options, {}, {
+      method: 'post',
+      url: url,
+      data: data
+    });
+
     return service(axiosOpt);
   };
 
   Vue.prototype.$delete = function (url, data, options) {
-    const axiosOpt = { ...options,
-      ...{
-        method: 'delete',
-        url,
-        data
-      }
-    };
+    var axiosOpt = _objectSpread2({}, options, {}, {
+      method: 'delete',
+      url: url,
+      data: data
+    });
+
     return service(axiosOpt);
   };
 
   Vue.prototype.$put = function (url, data, options) {
-    const axiosOpt = { ...options,
-      ...{
-        method: 'put',
-        url,
-        data
-      }
-    };
+    var axiosOpt = _objectSpread2({}, options, {}, {
+      method: 'put',
+      url: url,
+      data: data
+    });
+
     return service(axiosOpt);
   };
 
-  let GlobalVue = null;
+  var GlobalVue = null;
 
   if (typeof window !== 'undefined') {
     GlobalVue = window.Vue;
@@ -1746,8 +1803,8 @@ WpAxiosPlugin.install = (Vue, options) => {
     GlobalVue = global.Vue;
   }
 
-  if (!GlobalVue) {
-    throw Error('Vue实例未注入');
+  if (GlobalVue) {
+    GlobalVue.use(WpAxiosPlugin);
   }
 };
 
