@@ -1,5 +1,5 @@
 {
-  "name": "ajax",
+  "name": "wp-axios-plugin",
   "version": "1.0.0",
   "repository": "https://github.com/ElvisUpUp/ajax.git",
   "author": "何镇豪 <elvis4study@gmail.com>",
