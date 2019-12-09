@@ -7,7 +7,7 @@ const config = require('../package.json')
 
 export default {
   input: 'src/index.js',
-  name: 'vue-axios-plugin',
+  name: 'wp-axios-plugin',
   plugins: [
     resolve({
       jsnext: true,
