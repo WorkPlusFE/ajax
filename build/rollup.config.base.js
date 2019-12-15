@@ -7,7 +7,7 @@ const config = require('../package.json')
 
 export default {
   input: 'src/index.js',
-  name: 'wp-axios-plugin',
+  name: 'ajax',
   plugins: [
     resolve({
       jsnext: true,
