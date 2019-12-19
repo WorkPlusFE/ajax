@@ -1,11 +1,11 @@
 {
-  "name": "wp-axios-plugin",
+  "name": "ajax",
   "version": "1.0.0",
   "repository": "https://github.com/ElvisUpUp/ajax.git",
   "author": "何镇豪 <elvis4study@gmail.com>",
   "license": "MIT",
-  "main": "dist/wp-axios-plugin.umd.js",
-  "module": "dist/wp-axios-plugin.esm.js",
+  "main": "dist/ajax.umd.js",
+  "module": "dist/ajax.esm.js",
   "typings": "types/index.d.ts",
   "scripts": {
     "build": "npm run build:browser && npm run build:es && npm run build:umd",
@@ -28,6 +28,5 @@
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-uglify": "^6.0.3",
     "uglify-es": "^3.3.9",
-    "vue": "^2.6.10"
   }
 }

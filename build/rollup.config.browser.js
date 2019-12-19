@@ -4,11 +4,11 @@ import { minify } from 'uglify-es'
 
 const config = Object.assign({}, base, {
   output: {
-    file: 'dist/wp-axios-plugin.min.js',
+    file: 'dist/ajax.min.js',
     format: 'iife',
-    name: '$axios'
+    name: '$ajax'
   },
-  name: 'VueAxiosPlugin'
+  name: 'ajax'
 })
 
 config.plugins.push(uglify.uglify({}, minify))

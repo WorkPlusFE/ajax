@@ -1668,7 +1668,90 @@ return /******/ (function(modules) { // webpackBootstrap
 
 });
 
-var WpAxiosPlugin = {};
+var $ajax = {};
+/**
+ * 请求接口传参处理
+ * @param params 请求接口的传参
+ */
+
+function handleData(params) {
+  if (!params) {
+    return;
+  }
+
+  var data = Object.create(null); // 过滤掉空传参 (undefined || null)
+
+  Object.keys(params).forEach(function (k) {
+    if (params[k] !== undefined || params[k] !== null) {
+      data[k] = params[k];
+    }
+  });
+  return data;
+}
+
+function httpGet(url, data, options, instance) {
+  if (!instance) {
+    instance = axios;
+  }
+
+  var params = handleData(data);
+
+  var axiosOption = _objectSpread2({}, options, {}, {
+    method: 'get',
+    url: url,
+    params: params
+  });
+
+  return instance(axiosOption);
+}
+
+function httpPost(url, data, options, instance) {
+  if (!instance) {
+    instance = axios;
+  }
+
+  var params = handleData(data);
+
+  var axiosOption = _objectSpread2({}, options, {}, {
+    method: 'post',
+    url: url,
+    data: params
+  });
+
+  return instance(axiosOption);
+}
+
+function httpDelete(url, data, options, instance) {
+  if (!instance) {
+    instance = axios;
+  }
+
+  var params = handleData(data);
+
+  var axiosOption = _objectSpread2({}, options, {}, {
+    method: 'delete',
+    url: url,
+    params: params
+  });
+
+  return instance(axiosOption);
+}
+
+function httpPut(url, data, options, instance) {
+  if (!instance) {
+    instance = axios;
+  }
+
+  var params = handleData(data);
+
+  var axiosOption = _objectSpread2({}, options, {}, {
+    method: 'put',
+    url: url,
+    data: params
+  });
+
+  return instance(axiosOption);
+}
 
 function create(options) {
   if (Object.prototype.toString.call(options) !== '[object Object]') {
@@ -1709,105 +1792,40 @@ function create(options) {
   });
 
   service.$get = function (url, data, options) {
-    var axiosOpt = _objectSpread2({}, options, {}, {
-      method: 'get',
-      url: url,
-      params: data
-    });
-
-    return service(axiosOpt);
+    return httpGet(url, data, options, service);
   };
 
   service.$post = function (url, data, options) {
-    var axiosOpt = _objectSpread2({}, options, {}, {
-      method: 'post',
-      url: url,
-      data: data
-    });
-
-    return service(axiosOpt);
+    return httpPost(url, data, options, service);
   };
 
   service.$delete = function (url, data, options) {
-    var axiosOpt = _objectSpread2({}, options, {}, {
-      method: 'delete',
-      url: url,
-      data: data
-    });
-
-    return service(axiosOpt);
+    return httpDelete(url, data, options, service);
   };
 
   service.$put = function (url, data, options) {
-    var axiosOpt = _objectSpread2({}, options, {}, {
-      method: 'put',
-      url: url,
-      data: data
-    });
-
-    return service(axiosOpt);
+    return httpPut(url, data, options, service);
   };
 
   return service;
 }
 
-WpAxiosPlugin.install = function (Vue, options) {
-  var service = create(options);
-  Vue.prototype.$axios = service;
+$ajax.create = create;
 
-  Vue.prototype.$get = function (url, data, options) {
-    var axiosOpt = _objectSpread2({}, options, {}, {
-      method: 'get',
-      url: url,
-      params: data
-    });
-
-    return service(axiosOpt);
-  };
-
-  Vue.prototype.$post = function (url, data, options) {
-    var axiosOpt = _objectSpread2({}, options, {}, {
-      method: 'post',
-      url: url,
-      data: data
-    });
-
-    return service(axiosOpt);
-  };
-
-  Vue.prototype.$delete = function (url, data, options) {
-    var axiosOpt = _objectSpread2({}, options, {}, {
-      method: 'delete',
-      url: url,
-      data: data
-    });
-
-    return service(axiosOpt);
-  };
-
-  Vue.prototype.$put = function (url, data, options) {
-    var axiosOpt = _objectSpread2({}, options, {}, {
-      method: 'put',
-      url: url,
-      data: data
-    });
-
-    return service(axiosOpt);
-  };
-
-  var GlobalVue = null;
-
-  if (typeof window !== 'undefined') {
-    GlobalVue = window.Vue;
-  } else if (typeof global !== 'undefined') {
-    GlobalVue = global.Vue;
-  }
-
-  if (GlobalVue) {
-    GlobalVue.use(WpAxiosPlugin);
-  }
+$ajax.$get = function (url, data, options) {
+  return httpGet(url, data, options);
 };
 
-WpAxiosPlugin.create = create;
+$ajax.$post = function (url, data, options) {
+  return httpPost(url, data, options);
+};
 
-export default WpAxiosPlugin;
+$ajax.$delete = function (url, data, options) {
+  return httpDelete(url, data, options);
+};
+
+$ajax.$put = function (url, data, options) {
+  return httpPut(url, data, options);
+};
+
+export default $ajax;
