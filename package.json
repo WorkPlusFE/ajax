@@ -1,5 +1,5 @@
 {
-  "name": "ajax",
+  "name": "@w6s/ajax",
   "version": "1.0.0",
   "repository": "https://github.com/ElvisUpUp/ajax.git",
   "author": "何镇豪 <elvis4study@gmail.com>",
@@ -27,6 +27,9 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-uglify": "^6.0.3",
-    "uglify-es": "^3.3.9",
+    "uglify-es": "^3.3.9"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
